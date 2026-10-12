@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /partials/
+Disallow: /tools/
+Sitemap: https://rvalumcc.org/sitemap.xml
