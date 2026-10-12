@@ -24,6 +24,17 @@
 
   $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 
+  // ---- Draft banner (config.js DRAFT: true) ----
+  if (data.DRAFT) {
+    const bar = document.createElement("div");
+    bar.className = "draft-banner";
+    bar.setAttribute("role", "note");
+    bar.innerHTML =
+      "<strong>DRAFT for review.</strong> This is a preview of the new website. Some information is out of date, " +
+      "and online donations are turned off. Please send corrections to the person who shared this link with you.";
+    document.body.prepend(bar);
+  }
+
   // ---- Scholarship stats ----
   const money = (n) => "$" + Number(n).toLocaleString("en-US");
   const s = data.scholarships;

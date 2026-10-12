@@ -66,6 +66,13 @@ p { margin: 0 0 1em; }
 .skip-link:focus { left: 16px; top: 16px; z-index: 100; background: #fff; padding: 8px 14px; border-radius: 8px; }
 :focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
 
+/* ---------- Draft banner (config.js DRAFT) ---------- */
+.draft-banner {
+  background: #fff3cd; color: #5c4400; border-bottom: 2px solid #e0b94f;
+  padding: 10px 20px; text-align: center; font-size: .95rem; line-height: 1.45;
+}
+.draft-banner strong { color: #3d2d00; }
+
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .5em;
@@ -285,7 +292,9 @@ p { margin: 0 0 1em; }
 
 /* ---------- Donate ---------- */
 .donate-layout { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(32px, 5vw, 64px); align-items: start; }
+.donate-layout > * { min-width: 0; }
 @media (max-width: 900px) { .donate-layout { grid-template-columns: 1fr; } }
+@media (max-width: 340px) { .chips { grid-template-columns: repeat(2, 1fr); } }
 .donate-box {
   background: var(--paper); border-radius: var(--radius-lg); padding: clamp(24px, 4vw, 36px);
   box-shadow: 0 2px 4px rgba(18,61,40,.06), 0 18px 48px rgba(18,61,40,.14);

@@ -1,4 +1,7 @@
 User-agent: *
-Disallow: /partials/
-Disallow: /tools/
-Sitemap: https://rvalumcc.org/sitemap.xml
+Disallow: /
+# DRAFT: at launch replace with:
+# User-agent: *
+# Disallow: /partials/
+# Disallow: /tools/
+# Sitemap: https://rvalumcc.org/sitemap.xml

@@ -31,6 +31,10 @@
   function update() {
     $("#amount-display").textContent = amount >= MIN ? money(amount) : "$0";
     const ok = amount >= MIN;
+    if (cfg.DRAFT) {
+      hint("Online donations are turned off while this draft site is being reviewed.", true);
+      return;
+    }
     $("#paypal-container").style.display = ok ? "" : "none";
     if (!ok) hint("Choose or enter an amount of $1 or more to continue.");
     else if (rendered) hint("");
@@ -72,6 +76,11 @@
 
   async function init() {
     update();
+    if (cfg.DRAFT) {
+      // Draft/review mode: never load PayPal, so no real payment can be made.
+      $("#paypal-container").hidden = true;
+      return;
+    }
     if (!cfg.PAYPAL_CLIENT_ID) {
       hint("Online giving is being set up. " + fallback, true);
       return;

@@ -3,6 +3,11 @@
 // Edit, save, push. Every page that shows these values updates automatically.
 // ============================================================================
 window.RACC = {
+  // DRAFT MODE: true while the site is being reviewed. Shows the draft banner on
+  // every page and turns OFF online donations (PayPal never loads).
+  // Set to false at launch (and remove the noindex tags + restore CNAME; see CLAUDE.md).
+  DRAFT: true,
+
   // Same PayPal Business account (Live REST app) as ridgeviewgolf.org.
   // Donations are tagged custom_id "DONATION-RACC-…" so the golf site's existing
   // PayPal webhook logs them to the Donations tab of the golf Google Sheet.
