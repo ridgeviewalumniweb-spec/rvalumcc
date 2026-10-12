@@ -29,6 +29,18 @@ def render(name: str, page_url: str) -> str:
     return html
 
 
+ROOT_LINK = re.compile(r'((?:href|src)=")/(?!/)([^"]*)"')
+
+
+def relativize(html: str, page: pathlib.Path) -> str:
+    """Turn root links (/styles.css) into page-relative ones (../styles.css) so the
+    site works both at https://rvalumcc.org/ and under a sub-path such as the
+    GitHub Pages preview https://<user>.github.io/rvalumcc/."""
+    depth = len(page.relative_to(ROOT).parts) - 1
+    prefix = "../" * depth
+    return ROOT_LINK.sub(lambda m: f'{m.group(1)}{prefix + m.group(2) or "./"}"', html)
+
+
 changed = 0
 for page in sorted(ROOT.rglob("*.html")):
     if "partials" in page.parts:
@@ -38,6 +50,10 @@ for page in sorted(ROOT.rglob("*.html")):
     for name in PARTIALS:
         pattern = re.compile(rf"(<!-- partial:{name} -->)(.*?)(<!-- /partial:{name} -->)", re.S)
         new = pattern.sub(lambda m: f"{m.group(1)}\n{render(name, url_for(page))}\n{m.group(3)}", new)
+    # 404.html is served at whatever path was requested, so relative links can't
+    # work there; it keeps root links (correct once the site is on rvalumcc.org).
+    if page.name != "404.html":
+        new = relativize(new, page)
     if new != text:
         page.write_text(new, encoding="utf-8", newline="\n")
         changed += 1
